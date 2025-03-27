@@ -1,0 +1,70 @@
+Setting Up Accessibility Features in Django
+1. Set Up Django
+First, ensure you have Django installed:
+
+sh
+Copy
+Edit
+pip install django
+django-admin startproject myproject
+cd myproject
+python manage.py startapp myapp
+Add 'myapp' to INSTALLED_APPS in settings.py.
+
+2. Add ARIA Attributes in Templates
+Django’s template system allows you to add ARIA (Accessible Rich Internet Applications) attributes easily.
+
+html
+Copy
+Edit
+<label for="username" aria-label="Enter your username">Username:</label>
+<input type="text" id="username" name="username">
+3. Use Django Forms for Accessible Forms
+Django’s form system automatically associates labels with form fields.
+
+python
+Copy
+Edit
+from django import forms
+
+class AccessibleForm(forms.Form):
+    name = forms.CharField(label="Your Name", widget=forms.TextInput(attrs={"aria-required": "true"}))
+    email = forms.EmailField(label="Your Email", widget=forms.EmailInput(attrs={"aria-describedby": "emailHelp"}))
+4. Implement Keyboard Navigation
+Ensure interactive elements are keyboard-friendly:
+
+html
+Copy
+Edit
+<button tabindex="0">Click Me</button>
+5. Add Accessible Error Messages
+Django provides error handling, but you can make it more accessible:
+
+python
+Copy
+Edit
+if form.errors:
+    for field in form:
+        for error in field.errors:
+            print(f"<p role='alert'>{error}</p>")
+6. Use Django Middleware for Accessibility
+You can create a middleware to enforce accessibility checks.
+
+python
+Copy
+Edit
+from django.utils.deprecation import MiddlewareMixin
+
+class AccessibilityMiddleware(MiddlewareMixin):
+    def process_response(self, request, response):
+        response["Content-Language"] = "en"
+        return response
+Add it to MIDDLEWARE in settings.py.
+
+7. Test with Lighthouse and WAVE
+Run accessibility audits using:
+
+Google Lighthouse (Chrome DevTools)
+
+WAVE (Web Accessibility Evaluation Tool)
+
