@@ -167,6 +167,20 @@ egister
 </div>
 {% endblock %}
 
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<div class="dashboard-container">
+    <h2>Welcome, {{ username }}!</h2>
+    <p>This is your dashboard. You are now logged in.</p>
+    <a href="{% url 'logout' %}" class="logout-btn">Log Out</a>
+</div>
+{% endblock %}
+
+
 authy
 :root {
     /* Defining some brand colors so we can use them consistently */
